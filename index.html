@@ -17,4 +17,103 @@
     .btn-anim { transition: transform .18s ease, box-shadow .18s ease; }
     .btn-anim:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 30px rgba(2,6,23,0.6); }
     .fade { animation: fadeUp .4s ease both; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px);} to { opacity:1;
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px);} to { opacity:1; transform:none;} }
+    .small { font-size: .86rem; color: #cfe3ff; }
+    /* progress look */
+    .progress-bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.09); overflow: hidden; }
+    .progress-bar>div { height: 100%; width: 0%; background: linear-gradient(90deg,#34d399,#06b6d4); transition: width .18s linear; }
+    /* drag area */
+    .drop-hover { outline: 2px dashed rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
+
+  <header class="w-full max-w-4xl flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+      <div class="p-3 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg text-white">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="white" stroke-width="1.6"/><path d="M9 6h6" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <h1 class="text-2xl font-semibold">My Personal Cloud</h1>
+        <p class="small">Private files • secure • fast</p>
+      </div>
+    </div>
+
+    <nav class="flex items-center gap-3">
+      <button id="signOutBtn" class="hidden btn-anim px-4 py-2 rounded-lg bg-white/8 text-white small">Sign out</button>
+      <a href="#" target="_blank" id="helpLink" class="text-sm text-white/80 small">Help</a>
+    </nav>
+  </header>
+
+  <main class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Login -->
+    <section id="loginCard" class="glass p-6 fade">
+      <h2 class="text-lg font-semibold mb-3">Sign in</h2>
+      <p class="small mb-4">Use your account to manage files.</p>
+
+      <label class="block small mb-2">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" class="w-full p-3 rounded-md bg-transparent border border-white/6 outline-none mb-3">
+
+      <label class="block small mb-2">Password</label>
+      <input id="password" type="password" placeholder="••••••••" class="w-full p-3 rounded-md bg-transparent border border-white/6 outline-none mb-4">
+
+      <div class="flex gap-3">
+        <button onclick="login()" class="btn-anim flex-1 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold">Sign in</button>
+        <button id="demoBtn" class="btn-anim px-4 py-2 rounded-lg bg-white/6 text-white small">Demo</button>
+      </div>
+      <p class="small mt-3 text-white/70">If you don't have an account, create one in your Supabase dashboard (Email auth enabled).</p>
+    </section>
+
+    <!-- File Manager -->
+    <section id="fileManager" class="hidden glass p-6 flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold">Upload & Manage</h2>
+          <p class="small">Drag & drop, or choose files. Files are private and signed for secure downloads.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input id="searchInput" type="search" placeholder="Search files..." class="p-2 rounded-md bg-transparent border border-white/6 small outline-none" />
+          <select id="sortSelect" class="p-2 rounded-md bg-transparent border border-white/6 small">
+            <option value="updated_desc">Newest</option>
+            <option value="updated_asc">Oldest</option>
+            <option value="name_asc">A → Z</option>
+            <option value="name_desc">Z → A</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- upload area -->
+      <div id="dropArea" class="p-4 rounded-lg glass-2 border border-white/4 flex items-center gap-4">
+        <div class="flex-1">
+          <div class="flex items-center gap-3">
+            <label for="fileInput" class="cursor-pointer btn-anim px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold">📤 Choose file</label>
+            <input id="fileInput" type="file" class="hidden" />
+            <button id="uploadBtn" class="btn-anim px-4 py-2 rounded-lg bg-white/6 text-white small">Start upload</button>
+          </div>
+          <p class="small mt-2">Or drag files here to upload. Max single-file size depends on your Supabase limits.</p>
+        </div>
+
+        <div class="w-48">
+          <div class="small mb-2">Upload progress</div>
+          <div class="progress-bar"><div id="progressInner"></div></div>
+          <div id="progressText" class="small mt-2 text-right">Idle</div>
+        </div>
+      </div>
+
+      <!-- file list -->
+      <div>
+        <h3 class="font-semibold mb-2">Files</h3>
+        <ul id="fileList" class="space-y-3 max-h-[42vh] overflow-auto pr-2"></ul>
+        <div id="emptyMsg" class="small text-white/60 mt-2">No files yet.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="w-full max-w-4xl mt-8 text-center small text-white/60">
+    © Your Personal Cloud — built with care.
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
