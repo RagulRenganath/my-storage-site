@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Cloud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            margin-top: 40px;
+            font-size: 2rem;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-top: 20px;
+            width: 90%;
+            max-width: 500px;
+        }
+        input, button {
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e68a00;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        ul li {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        a {
+            color: #ffcc80;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>📂 My Personal Cloud</h1>
+
+    <div id="login" class="card">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="file-section" class="card" style="display:none;">
+        <h2>Upload File</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload</button>
+
+        <h2>My Files</h2>
+        <ul id="fileList"></ul>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
